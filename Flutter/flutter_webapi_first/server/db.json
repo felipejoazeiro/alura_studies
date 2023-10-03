@@ -1,0 +1,37 @@
+{
+  "learnhttp": {
+    "content": "Olá mundo!"
+  },
+  "journals": [
+    {
+      "id": "9b505e70-5c62-11ee-a208-f3936474756a",
+      "content": "Alguma coisa",
+      "createdAt": "2023-09-16 11:36:06.533611",
+      "updated_at": "2023-09-16 11:36:06.533611"
+    },
+    {
+      "id": "736de150-5c64-11ee-a208-f3936474756a",
+      "content": "Hoje foi domingo",
+      "createdAt": "2023-09-17 11:36:06.533611",
+      "updated_at": "2023-09-17 11:36:06.533611"
+    },
+    {
+      "id": "63116570-5c69-11ee-a5f4-174604301cde",
+      "content": "teste",
+      "createdAt": "2023-09-20 12:34:41.865375",
+      "updated_at": "2023-09-20 12:34:41.865375"
+    },
+    {
+      "id": "78d89520-5c6b-11ee-96a5-1b70f1ffe1be",
+      "content": "Dia de basquete!",
+      "createdAt": "2023-09-17 12:43:31.035575",
+      "updated_at": "2023-09-17 12:43:31.035575"
+    },
+    {
+      "id": "1798d990-5c7b-11ee-96a5-1b70f1ffe1be",
+      "content": "Legal!",
+      "createdAt": "2023-09-26 12:43:31.035575",
+      "updated_at": "2023-09-26 12:43:31.035575"
+    }
+  ]
+}
