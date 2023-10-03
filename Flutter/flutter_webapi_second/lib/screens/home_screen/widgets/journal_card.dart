@@ -180,11 +180,11 @@ class JournalCard extends StatelessWidget {
                     : "Houve um erro ao remover")));
             refreshFunction();
           }).catchError((erro){
-            logout(context);
-          },test: (error)=>error is TokenExpiredException).catchError((e){
-            var innerError = e as HttpException;
-            showExceptionDialog(context, content: innerError.message);
-          },test: (e)=>e is HttpException);
+              logout(context);
+            },test: (error)=>error is TokenExpiredException).catchError((e){
+              var innerError = e as HttpException;
+              showExceptionDialog(context, content: innerError.message);
+            },test: (e)=>e is HttpException);
           }
         }
       });   

@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_webapi_second_course/helpers/logout.dart';
+import 'package:flutter_webapi_second_course/screens/commom/exception_dialog.dart';
 import '../../helpers/weekday.dart';
 import '../../models/journal.dart';
 import '../../services/journal_service.dart';
@@ -64,7 +68,12 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
         } else {
           Navigator.pop(context, DisposeStatus.error);
         }
-      });
+      }).catchError((erro){
+              logout(context);
+            },test: (error)=>error is TokenExpiredException).catchError((e){
+              var innerError = e as HttpException;
+              showExceptionDialog(context, content: innerError.message);
+            },test: (e)=>e is HttpException);
     } else {
       journalService.register(widget.journal).then((value) {
         if (value) {
@@ -72,8 +81,13 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
         } else {
           Navigator.pop(context, DisposeStatus.error);
         }
-      });
-    }
+      }).catchError((erro){
+          logout(context);
+        },test: (error)=>error is TokenExpiredException).catchError((e){
+          var innerError = e as HttpException;
+          showExceptionDialog(context, content: innerError.message);
+        },test: (e)=>e is HttpException);
+      }
   }
 }
 
