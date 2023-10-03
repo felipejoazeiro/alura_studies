@@ -3,23 +3,33 @@ import '../../helpers/weekday.dart';
 import '../../models/journal.dart';
 import '../../services/journal_service.dart';
 
-class AddJournalScreen extends StatelessWidget {
+class AddJournalScreen extends StatefulWidget {
   final Journal journal;
   final bool isEditing;
-  AddJournalScreen({
+  const AddJournalScreen({
     Key? key,
     required this.journal,
     required this.isEditing,
   }) : super(key: key);
 
-  final TextEditingController _contentController = TextEditingController();
+  @override
+  State<AddJournalScreen> createState() => _AddJournalScreenState();
+}
+
+class _AddJournalScreenState extends State<AddJournalScreen> {
+  TextEditingController contentController = TextEditingController();
+
+  @override
+  void initState() {
+    contentController.text = widget.journal.content;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    _contentController.text = journal.content;
     return Scaffold(
       appBar: AppBar(
-        title: Text(WeekDay(journal.createdAt).toString()),
+        title: Text(WeekDay(widget.journal.createdAt).toString()),
         actions: [
           IconButton(
             onPressed: () {
@@ -32,7 +42,7 @@ class AddJournalScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: TextField(
-          controller: _contentController,
+          controller: contentController,
           keyboardType: TextInputType.multiline,
           style: const TextStyle(fontSize: 24),
           expands: true,
@@ -43,18 +53,25 @@ class AddJournalScreen extends StatelessWidget {
     );
   }
 
-  registerJournal(BuildContext context) {
-    String content = _contentController.text;
-    journal.content = content;
+  registerJournal(BuildContext context) async {
+    JournalService journalService = JournalService();
+    widget.journal.content = contentController.text;
 
-    JournalService service = JournalService();
-    if (isEditing) {
-      service.register(journal).then((value) {
-        Navigator.pop(context, value);
+    if (widget.isEditing) {
+      journalService.edit(widget.journal.id, widget.journal).then((value) {
+        if (value) {
+          Navigator.pop(context, DisposeStatus.success);
+        } else {
+          Navigator.pop(context, DisposeStatus.error);
+        }
       });
     } else {
-      service.edit(journal.id, journal).then((value) {
-        Navigator.pop(context, value);
+      journalService.register(widget.journal).then((value) {
+        if (value) {
+          Navigator.pop(context, DisposeStatus.success);
+        } else {
+          Navigator.pop(context, DisposeStatus.error);
+        }
       });
     }
   }

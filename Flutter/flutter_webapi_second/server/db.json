@@ -1,4 +1,26 @@
 {
   "learnhttp": {},
-  "journals": []
+  "journals": [
+    {
+      "id": "7aca0900-620a-11ee-a964-97af1df42e6b",
+      "content": "Flutter treinamento",
+      "created_at": "2023-09-26 16:32:14.544348",
+      "updated_at": "2023-09-26 16:32:14.544348",
+      "userId": "1"
+    },
+    {
+      "id": "87fe8560-620f-11ee-a964-97af1df42e6b",
+      "content": "Tentando nova inserçao",
+      "created_at": "2023-09-24 16:32:14.544348",
+      "updated_at": "2023-09-24 16:32:14.544348",
+      "userId": "1"
+    }
+  ],
+  "users": [
+    {
+      "email": "felipe@joa",
+      "password": "$2a$10$OCCukuDKruBWKuR8pABBVuVAU3BCg6dqCan9S3mZJogqVbynUqzOm",
+      "id": 1
+    }
+  ]
 }

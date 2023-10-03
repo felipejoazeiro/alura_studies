@@ -1,4 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_webapi_second_course/helpers/logout.dart';
+import 'package:flutter_webapi_second_course/screens/commom/confirmation_dialog.dart';
+import 'package:flutter_webapi_second_course/screens/commom/exception_dialog.dart';
+import 'package:flutter_webapi_second_course/screens/home_screen/home_screen.dart';
+import 'package:flutter_webapi_second_course/services/journal_service.dart';
 import 'package:uuid/uuid.dart';
 import '../../../helpers/weekday.dart';
 import '../../../models/journal.dart';
@@ -8,12 +15,14 @@ class JournalCard extends StatelessWidget {
   final Journal? journal;
   final DateTime showedDate;
   final Function refreshFunction;
-  const JournalCard({
-    Key? key,
-    this.journal,
-    required this.showedDate,
-    required this.refreshFunction,
-  }) : super(key: key);
+  final String userId;
+  const JournalCard(
+      {Key? key,
+      this.journal,
+      required this.showedDate,
+      required this.refreshFunction,
+      required this.userId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +91,15 @@ class JournalCard extends StatelessWidget {
                   ),
                 ),
               ),
+              IconButton(
+                onPressed: () {
+                  deleteJournal(context);
+                },
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.grey,
+                ),
+              ),
             ],
           ),
         ),
@@ -106,10 +124,12 @@ class JournalCard extends StatelessWidget {
 
   callAddJournalScreen(BuildContext context, {Journal? journal}) {
     Journal internalJournal = Journal(
-        id: const Uuid().v1(),
-        content: "",
-        createdAt: showedDate,
-        updatedAt: showedDate);
+      id: const Uuid().v1(),
+      content: "",
+      createdAt: showedDate,
+      updatedAt: showedDate,
+      userId: userId,
+    );
 
     if (journal != null) {
       internalJournal = journal;
@@ -142,4 +162,32 @@ class JournalCard extends StatelessWidget {
       }
     });
   }
-}
+
+  deleteJournal(BuildContext context) {
+    showConfirmationDialog(
+      context,
+      content:
+          "Deseja realmente remover o registro de ${WeekDay(journal!.createdAt)}?",
+      affirmativeOption: "Remover",
+    ).then((value) {
+      if (value != null && value) {
+        JournalService service = JournalService();
+        if (journal != null) {
+          service.remove(journal!.id).then((value) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text((value)
+                    ? "Removido com sucesso!"
+                    : "Houve um erro ao remover")));
+            refreshFunction();
+          }).catchError((erro){
+            logout(context);
+          },test: (error)=>error is TokenExpiredException).catchError((e){
+            var innerError = e as HttpException;
+            showExceptionDialog(context, content: innerError.message);
+          },test: (e)=>e is HttpException);
+          }
+        }
+      });   
+  }
+ }
+
