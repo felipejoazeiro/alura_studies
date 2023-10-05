@@ -23,27 +23,27 @@ class HighlightItem extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Image(
-            height: 120,
+            height: 100,
             width: double.infinity,
             image: AssetImage(imageURI),
             fit: BoxFit.cover,
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.fromLTRB(8, 1.5, 8, 1.5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
                   itemTitle,
                   style: const TextStyle(
-                    fontSize: 24,
+                    fontSize: 20,
                     fontFamily: 'Caveat',
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text("R\$ " + itemPrice),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 0.0),
                   child: Text(itemDescription),
                 ),
                 Align(
