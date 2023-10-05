@@ -65,10 +65,8 @@ class _HeaderState extends State<Header> {
                         switch (snapshot.connectionState) {
                           case ConnectionState.none:
                             return const CircularProgressIndicator();
-                            break;
                           case ConnectionState.waiting:
                             return const CircularProgressIndicator();
-                            break;
                           case ConnectionState.active:
                             // TODO: Handle this case.
                             break;
@@ -91,7 +89,6 @@ class _HeaderState extends State<Header> {
                                 const Text('Dolar to Real'),
                               ],
                             );
-                            break;
                         }
                         return const Text('Erro na API');
                       }),
