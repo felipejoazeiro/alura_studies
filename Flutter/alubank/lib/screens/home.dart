@@ -1,11 +1,12 @@
-import 'package:alubank/components/sections/account_actions.dart';
-import 'package:alubank/components/sections/account_points.dart';
-import 'package:alubank/components/sections/header.dart';
-import 'package:alubank/components/sections/recent_activity.dart';
+import 'package:estilizacao_componentes/components/sections/actions.dart';
+import 'package:estilizacao_componentes/components/sections/header.dart';
+import 'package:estilizacao_componentes/components/sections/points_exchange.dart';
+import 'package:estilizacao_componentes/components/sections/recent_activities.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +14,10 @@ class Home extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Header(),
+            Header(), // cuidado com o const
             RecentActivity(),
-            AccountActions(),
-            AccountPoints(),
+            ActionsSection(),
+            PointsExchange(),
           ],
         ),
       ),
