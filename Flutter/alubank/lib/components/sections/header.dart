@@ -1,4 +1,3 @@
-
 import 'package:estilizacao_componentes/data/bank_http.dart';
 import 'package:estilizacao_componentes/data/bank_inherited.dart';
 import 'package:flutter/material.dart';
