@@ -26,7 +26,7 @@ class ActionsSection extends StatelessWidget {
                         BankInherited.of(context).values.deposit(10);
                         // print(BankInherited.of(context).values.points);
                       },
-                      child: const BoxCard(
+                      child: BoxCard(
                         boxCardBody:
                             Activity(
                             mainIcon: Icon(
@@ -37,7 +37,7 @@ class ActionsSection extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: (){BankInherited.of(context).values.transfer(10);},
-                      child: const BoxCard(
+                      child: BoxCard(
                         boxCardBody:
                             Activity(
                             mainIcon: Icon(
@@ -48,7 +48,7 @@ class ActionsSection extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: (){},
-                      child: const BoxCard(
+                      child: BoxCard(
                         boxCardBody:
                             Activity(
                             mainIcon: Icon(
