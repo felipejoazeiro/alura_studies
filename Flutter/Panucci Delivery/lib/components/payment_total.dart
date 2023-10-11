@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:layout_responsivos/themes/app_colors.dart';
 
 class PaymentTotal extends StatelessWidget {
-  const PaymentTotal({Key? key}) : super(key: key);
+  const PaymentTotal({Key? key, required this.total}) : super(key: key);
+  final double total;
 
   @override
   Widget build(BuildContext context) {
@@ -13,51 +13,13 @@ class PaymentTotal extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text("Pedido:",
-                  style: TextStyle(color: AppColors.paymentMethodReceiptColor)),
-              const Text("R\$ 154,80"),
+              const Text("Total:",
+                  style: TextStyle(color: Color(0xFF9D9D9D))),
+              Text("R\$ ${total.toStringAsFixed(2)}",
+                  style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text("Serviço (10%):",
-                  style: TextStyle(color: AppColors.paymentMethodReceiptColor)),
-              const Text("R\$ 15,48"),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text("Total:",
-                  style: TextStyle(color: AppColors.paymentMethodReceiptColor)),
-              const Text("R\$ 170,28",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
-            ],
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {},
-          style: AppColors.buttonStyle,
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(right: 8.0),
-                  child: Icon(Icons.account_balance_wallet),
-                ),
-                Text(
-                  "Pedir",
-                  style: TextStyle(fontWeight: FontWeight.w500),
-                )
-              ]),
-        )
       ],
     );
   }

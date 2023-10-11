@@ -1,36 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:layout_responsivos/components/counter_component.dart';
+import 'package:panucci_delivery/models/item.dart';
 
-class OrderItem extends StatefulWidget {
+class OrderItem extends StatelessWidget {
   const OrderItem(
       {Key? key,
-      required this.imageURI,
-      required this.itemTitle,
-      required this.itemPrice})
+      required this.item})
       : super(key: key);
-  final String imageURI;
-  final String itemTitle;
-  final String itemPrice;
+  final Item item;
 
-  @override
-  State<OrderItem> createState() => _OrderItemState();
-}
-
-class _OrderItemState extends State<OrderItem> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      clipBehavior: Clip.hardEdge,
-      color: Theme.of(context).colorScheme.surfaceVariant,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Image(
-            height: 80,
-            width: 80,
-            image: AssetImage(widget.imageURI),
-            fit: BoxFit.cover,
+          Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
+            clipBehavior: Clip.hardEdge,
+            child: Image(
+              width: 42,
+              height: 42,
+              image: AssetImage(item.uri),
+              fit: BoxFit.cover,
+            ),
           ),
           Expanded(
             child: Padding(
@@ -38,15 +31,14 @@ class _OrderItemState extends State<OrderItem> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(widget.itemTitle),
-                  Text(widget.itemPrice),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Text(item.nome, style: const TextStyle(fontWeight: FontWeight.w600),),
+                  ),
+                  Text(item.preco.toStringAsFixed(2)),
                 ],
               ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(right: 8.0),
-            child: CounterComponent(),
           ),
         ],
       ),

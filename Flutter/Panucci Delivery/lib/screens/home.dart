@@ -1,71 +1,108 @@
 import 'package:flutter/material.dart';
-import 'package:layout_responsivos/components/main_drawer.dart';
-import 'package:layout_responsivos/screens/checkout.dart';
-import 'package:layout_responsivos/screens/drink_menu.dart';
-import 'package:layout_responsivos/screens/food_menu.dart';
-import 'package:layout_responsivos/screens/highlight.dart';
-import 'package:layout_responsivos/themes/app_colors.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:panucci_delivery/components/item_list.dart';
+import 'package:panucci_delivery/store/carrinho_store.dart';
+import 'package:provider/provider.dart';
+import '../components/categoria_text.dart';
+import '../components/search_input.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Home extends StatelessWidget {
+  Home({Key? key}) : super(key: key);
 
-  @override
-  State<Home> createState() => _HomeState();
-}
+  final TextEditingController searchTextController = TextEditingController();
 
-class _HomeState extends State<Home> {
-  int _currentPage = 0;
   @override
   Widget build(BuildContext context) {
-    final List<Widget> pages = [Highlight(), FoodMenu(), DrinkMenu()];
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Ristorante Panucci"),
-        backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-        actions: const <Widget>[
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Icon(
-              Icons.account_circle,
-              size: 32,
+    final carrinhoStore = Provider.of<CarrinhoStore>(context, listen: false);
+    return SafeArea(
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverToBoxAdapter(
+                child: SearchInput(searchTextController: searchTextController)),
+            const SliverToBoxAdapter(
+                child: CategoriaText(titulo: "Mais comprados")),
+            const SliverToBoxAdapter(
+              child: ItemList(categoria: "mais comprados"),
             ),
-          )
-        ],
-        centerTitle: true,
+            const SliverToBoxAdapter(
+                child: CategoriaText(titulo: "Para o almoço")),
+            const SliverToBoxAdapter(
+              child: ItemList(categoria: "para o almoço"),
+            ),
+            const SliverToBoxAdapter(
+                child: CategoriaText(titulo: "Para dividir")),
+            const SliverToBoxAdapter(
+              child: ItemList(categoria: "para dividir"),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Observer(builder: (_) {
+                  return InkWell(
+                    onTap: () {},
+                    child: Ink(
+                        width: double.infinity,
+                        height: 80,
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surfaceTint,
+                            borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(10))),
+                        child: Stack(children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Text(
+                                    carrinhoStore.quantidadeCarrinho.toString(),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary),
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.shopping_basket_outlined,
+                                  size: 24,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                )
+                              ],
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Ver carrinho",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              "R\$ 00,00",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary),
+                            ),
+                          ),
+                        ])),
+                  );
+                }),
+              ),
+            )
+          ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return const Checkout();
-          }));
-        },
-        child: const Icon(Icons.point_of_sale),
-      ),
-      drawer: const MainDrawer(),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.star_rounded),
-            label: 'Destaques',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant_menu),
-            label: 'Menu',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_bar),
-            label: 'Bebidas',
-          ),
-        ],
-        selectedItemColor: AppColors.bottomNavigationBarIconColor,
-        currentIndex: _currentPage,
-        onTap: (index) {
-          setState(() {
-            _currentPage = index;
-          });
-        },
-      ),
-      body: pages.elementAt(_currentPage),
     );
   }
 }
