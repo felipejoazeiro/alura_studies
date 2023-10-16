@@ -9,41 +9,33 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Card(
-            clipBehavior: Clip.hardEdge,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: 200),
-              child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MovieScreen(movie: movie),
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: InkWell(
+          child: Column(
+            children: [
+              Card(
+                child: movie.imageURI != null
+                    ? Image.network(
+                        movie.imageURI.toString(),
+                        fit: BoxFit.cover,
+                      )
+                    : const Center(
+                        child: Icon(Icons.error),
                       ),
-                    );
-                  },
-                  child: movie.imageURI != null
-                      ? Ink(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: NetworkImage(movie.imageURI!),
-                                fit: BoxFit.cover),
-                          ),
-                        )
-                      : Ink(
-                          child: const Center(
-                            child: Icon(Icons.error),
-                          ),
-                        )),
-            )),
-        Text(
-          movie.name,
-          style: Theme.of(context).textTheme.displaySmall,
-        )
-      ],
+              ),
+              Text(
+                movie.name,
+                style: Theme.of(context).textTheme.displaySmall,
+              )
+            ],
+          ),
+          onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MovieScreen(movie: movie),
+                ),
+              )),
     );
   }
 }
