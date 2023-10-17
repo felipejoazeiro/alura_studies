@@ -30,12 +30,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  intl: ^0.18.1
   intl_utils: ^2.8.5
+  flutter_localizations:
+    sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+
+dependency_overrides:
+  intl: any
 
 dev_dependencies:
   flutter_test:
@@ -61,3 +67,5 @@ flutter:
 
 flutter_intl:
   enabled: true
+  class_name: LocaleProvider
+  default_locale: en

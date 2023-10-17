@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a en locale. All the
+// This is a library that provides messages for a pt locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -18,16 +18,16 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'en';
+  String get localeName => 'pt';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "appName": MessageLookupByLibrary.simpleMessage("I18N Application"),
-        "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
+        "appName": MessageLookupByLibrary.simpleMessage("Aplicação I18N"),
+        "createAccount": MessageLookupByLibrary.simpleMessage("Criar conta"),
         "flutterIsTheBest": MessageLookupByLibrary.simpleMessage(
-            "Flutter is the best Framework"),
-        "goodbye": MessageLookupByLibrary.simpleMessage("Good Bye"),
-        "login": MessageLookupByLibrary.simpleMessage("Login"),
-        "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
+            "Flutter é o melhor framework"),
+        "goodbye": MessageLookupByLibrary.simpleMessage("Adeus"),
+        "login": MessageLookupByLibrary.simpleMessage("Entrar"),
+        "welcome": MessageLookupByLibrary.simpleMessage("Bem-vindo")
       };
 }

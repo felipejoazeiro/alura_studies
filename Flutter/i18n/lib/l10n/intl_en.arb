@@ -1,1 +1,8 @@
-{}
+{
+  "appName": "I18N Application",
+  "createAccount": "Create Account",
+  "flutterIsTheBest": "Flutter is the best Framework",
+  "goodbye": "Good Bye",
+  "login": "Login",
+  "welcome": "Welcome"
+}
