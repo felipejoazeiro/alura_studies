@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -16,6 +18,32 @@ class _DeviceScreenState extends State<DeviceScreen> {
   BluetoothConnectionState _connectionState =
       BluetoothConnectionState.disconnected;
   List<BluetoothService> _services = [];
+  bool _isDiscoveringServices = false;
+  bool _isConnectingOrDisconnecting = false;
+
+  late StreamSubscription<BluetoothConnectionState>
+      _connectionStateSubscription;
+  late StreamSubscription<bool> _isConnectingOrDisconnectingSubscription;
+  late StreamSubscription<int> _mtuSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _connectionStateSubscription =
+        widget.device.connectionState.listen((state) async {
+      _connectionState = state;
+      if (state == BluetoothConnectionState.connected) {
+        _services = [];
+      }
+      if (state == BluetoothConnectionState.connected && _rssi == null) {
+        _rssi = await widget.device.readRssi();
+      }
+      setState(() {});
+    });
+
+    
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -68,10 +68,10 @@ class _HomePageState extends State<HomePage> {
     device.connectAndUpdateStream().catchError((e) {
       SnackBarView.show(ABC.b, "Connect error: $e", success: false);
     });
-    /* MaterialPageRoute route = MaterialPageRoute(
+    MaterialPageRoute route = MaterialPageRoute(
         builder: (context) => DeviceScreen(device: device),
-        settings: RouteSettings(name: '/DeviceScreen'));
-    Navigator.of(context).push(route); */
+        settings: const RouteSettings(name: '/DeviceScreen'));
+    Navigator.of(context).push(route); 
   }
 
   Future onRefresh() {
@@ -91,7 +91,8 @@ class _HomePageState extends State<HomePage> {
       );
     } else {
       return FloatingActionButton(
-          child: const Text("SCAN"), onPressed: onScanPressed);
+          onPressed: onScanPressed,
+          child: const Text("SCAN"));
     }
   }
 
@@ -103,7 +104,7 @@ class _HomePageState extends State<HomePage> {
             onOpen: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => DeviceScreen(device: d),
-                settings: const RouteSettings(name: "DeviceScreen"),
+                settings: const RouteSettings(name: "/DeviceScreen"),
               ),
             ),
             onConnect: () => onConnectPressed(d),
